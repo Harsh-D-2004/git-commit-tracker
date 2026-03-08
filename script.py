@@ -157,8 +157,8 @@ def write_post_commit_hook():
 
     hook_path = hooks_dir / "post-commit"
 
-    with open("hook.py", "r", encoding="utf-8") as f:
-        hook_content = f.read()
+    hook_py_path = Path(__file__).parent / "hook.py"
+    hook_content = f'#!/bin/sh\npython "{hook_py_path.as_posix()}" "$@"\n'
 
     hook_path.write_text(hook_content, encoding="utf-8")
     hook_path.chmod(
